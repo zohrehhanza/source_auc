@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+<h1>This is your home page {{user}}</h1>
+
+{% block content %}
+    <br><br>
+    <div id="gallery">
+        {% for product in product_list %}
+            <div class="col-md-3 col-sm-4">
+                <div class="profilePicture">
+                    <a href="{% url 'product_detail' product.id %}">
+                        <img src="{{ product.image.url }}" class="img-responsive"  alt="Image"></a>
+
+            {% if  product.sold  %} <h3 class="text1" style="background-color: black; color: white"><b>SOLD TO:{{ product.sold_to }}</b></h3>  {% endif %}
+            {% if not product.sold  %} <h3 class="text" style="background-color: black; color: white"><b>{{ product.product_name }}</b></h3>       {% endif %}
+
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}
+

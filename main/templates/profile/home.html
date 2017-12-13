@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+<head>
+
+</head>
+{% block content %}
+
+<div id="home_main" class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+    <h1 style="text-align: center ; font:'sans-serif' ;font-size: x-large ;font-weight: 100" >Welcome to Auctionfy:<h1 id="name">{% if user.is_authenticated %}{{ user }}{% else %}{% endif %}</h1>
+
+</ul>
+    <ul class="nav navbar-nav navbar-left">
+
+</div>
+<div class='container'>
+
+    <img src="{% static "auction.0 (2).png" %}" alt="My image"/>
+
+    <div class="reza" >
+
+
+</div>
+<p id="demo"></p>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var username = "{{ user.username }}";
+
+            console.log(username);
+            $(document).ready(function(){
+             $("button").click(function(){
+               $.ajax({url: '/ajax/validate_notif/',
+                  data: {
+                     'username': username,
+                       },
+            dateType:'json',
+            success: function(result){
+            alert("kild kardiiii!");
+            $("#div1").innerHTML(result);
+        }});
+    });
+});
+    </script>
+<script type="text/javascript">
+
+function checkCompatibilty () {
+    if(!('speechSynthesis' in window)){
+        alert('Your browser is not supported audio. If google chrome, please upgrade!!');
+    }
+};
+checkCompatibilty();
+var voiceMap = [];
+
+function loadVoices () {
+    var voices = speechSynthesis.getVoices();
+    for (var i = 0; i < voices.length; i++) {
+        var voice = voices[i];
+        var option = document.createElement('option');
+        option.value = voice.name;
+        option.innerHTML = voice.name;
+        voiceMap[voice.name] = voice;
+    };
+};
+
+window.speechSynthesis.onvoiceschanged = function(e){
+    loadVoices();
+};
+	var Text= document.getElementById('name').innerHTML.length;
+    var Text= document.getElementById('name').innerHTML.length;
+    if (Text === 0) {
+            Text1 = "with auctionyfy ! buy and sell anything that you want";
+        } else {
+            Text1 = "welcome ,{{ user }}";
+
+    }
+	console.log(Text.value);
+    var msg = new SpeechSynthesisUtterance();
+    msg.volume = 0.5;
+    msg.rate =0.6
+
+{#    Text1 = Text+"! with auctionyfy ! buy and sell anything that you want"#}
+    msg.text = Text1;
+    window.speechSynthesis.speak(msg);
+function checkCompatibilty () {
+    if(!('speechSynthesis' in window)){
+        alert('Your browser is not supported. If google chrome, please upgrade!!');
+    }
+};
+
+checkCompatibilty();
+
+console.log(Text);
+
+var voiceMap = [];
+
+function loadVoices () {
+    var voices = speechSynthesis.getVoices();
+    for (var i = 0; i < voices.length; i++) {
+        var voice = voices[i];
+        var option = document.createElement('option');
+        option.value = voice.name;
+        option.innerHTML = voice.name;
+        voiceMap[voice.name] = voice;
+    };
+};
+
+window.speechSynthesis.onvoiceschanged = function(e){
+    loadVoices();
+};
+
+var w_text="welcome to conference room hahahaa"
+function speak (w_text) {
+    var msg = new SpeechSynthesisUtterance();
+    msg.volume = 0.5;
+
+    // msg.voice = voiceMap[voiceOptions.value];
+    Text="welcome to conference room"
+         // msg.text = Text;
+     msg.text=w_text;
+    window.speechSynthesis.speak(msg);
+};
+
+    </script>
+{% endblock content %}

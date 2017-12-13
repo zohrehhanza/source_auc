@@ -1,0 +1,53 @@
+ <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">Auctionfy</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+            <li class="active"><a href={% url "view_product" %}>Products</a></li>
+                {% if user.is_authenticated %}
+
+                   <li class="active" ><a href={% url "profile" %}>Profile</a></li>
+                   <li class="active" ><a href='https://getaroom.io/67f6ac'>Join Conference</a></li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href={% url "add_product"  %}>Add Product </a></li>
+                        <li class="active"><a href={% url "logout"  %}>log out </a></li>
+
+
+                {% else %}
+
+                       <li><a href={% url "about"%}>About</a></li>
+                       <li><a href={% url "contact"%}>Contact</a></li>
+
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href={% url "register" %}>Register here! </a></li>
+                        <li class="active"><a href={% url "login"  %}>Login </a></li>
+                {% endif %}
+
+                        </li>
+            </ul>
+
+
+          </div><!--/.nav-collapse -->
+
+        </div><!--/.container-fluid -->
+
+      </nav>
+          <ul class="nav navbar-nav navbar-right">     <span class="glyphicon glyphicon-volume-up" style="text-align: right";>  <input  class="checked" name="mute" id="muteCheckbox" type="Checkbox" checked></span></ul>
+
+ </div>

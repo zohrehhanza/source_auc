@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+<title>{% block head_title %}Auctionify{% endblock head_title %}</title>
+{% include 'snippets/css.html' %}
+   
+</head>
+<body>
+
+{% include 'snippets/nav.html' %}
+
+<div class='container'>
+{% block content %}{% endblock content %}
+</div>
+
+
+{% include 'snippets/js.html' %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+    var username = "{{ user.username }}";
+function checkCompatibilty () {
+    if(!('speechSynthesis' in window)){
+        alert('Your browser is not supported. If google chrome, please upgrade!!');
+    }
+};
+
+checkCompatibilty();
+
+console.log(Text);
+
+var voiceMap = [];
+
+function loadVoices () {
+    var voices = speechSynthesis.getVoices();
+    for (var i = 0; i < voices.length; i++) {
+        var voice = voices[i];
+        var option = document.createElement('option');
+        option.value = voice.name;
+        option.innerHTML = voice.name;
+        voiceMap[voice.name] = voice;
+    };
+};
+
+window.speechSynthesis.onvoiceschanged = function(e){
+    loadVoices();
+};
+
+var w_text="welcome to conference room hahahaa"
+function speak (w_text) {
+    var msg = new SpeechSynthesisUtterance();
+    msg.volume = 0.5;
+
+    // msg.voice = voiceMap[voiceOptions.value];
+    Text="welcome to conference room"
+         // msg.text = Text;
+     msg.text=w_text;
+    window.speechSynthesis.speak(msg);
+};
+var mute = $('#muteCheckbox').is(":checked");
+$("#muteCheckbox").click(function(){
+
+   alert(mute);
+   function turnOnVoice (){
+
+   }
+});
+    console.log(mute)
+    setInterval(function () {
+          $.ajax({
+                url: '/ajax/validate_notif/',
+                data: {
+                    'username': username,
+                },
+                dateType: 'json',
+                success: function (result) {
+                    {#            alert(result.note);#}
+                    speak(result.note)
+                    $("#div1").innerHTML(result);
+                }
+            });
+            {#     location.reload();#}
+        }, 5000);
+
+setInterval(function() {
+               $.ajax({url: '/ajax/validate_winner/',
+                  data: {
+                     'username': username,
+                       },
+            dateType:'json',
+            success: function(result){
+            alert(result.note1);
+{#            speak(result.note)#}
+            $("#div1").innerHTML(result);
+        }});
+{#     location.reload();#}
+       }, 7000);
+setInterval(function() {
+               $.ajax({url: '/ajax/validate_seller/',
+                  data: {
+                     'username': username,
+                       },
+            dateType:'json',
+            success: function(result){
+            alert(result.note2);
+{#            speak(result.note)#}
+            $("#div1").innerHTML(result);
+        }});
+{#     location.reload();#}
+       }, 9000);
+
+
+</script>
+</body>
+</html>

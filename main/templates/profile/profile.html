@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Profile</title>
+{% endblock %}
+
+{% block content%}
+
+<head>
+  <title>My Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="font-family:sans-serif ; font-size: medium; height: auto">
+
+<div class="row" style="height:200px; border: 2px solid black;background-color:lightgray" >
+    <div class="col-sm-4">
+            <div ><p style="font-family: sans-serif;background-color:lightslategrey"><b>Profile</b></br> </p>
+              <p>First name : {{ user.first_name}}</p>
+	            <p>Last name:{{user.last_name}}</p>
+	            <p>Email: {{ user.email}}</p>
+	            <p>User:{{user.userprofile}}</p>
+
+            </div>
+
+        </div>
+    <div class="col-sm-4">
+<!-- Comic Sans MS-->
+        <div><p style="font-family: sans-serif; text-align: center"> <b style='background-color:lightslategrey'> Products on Auction </b></p>
+              {% for p in my_products %}
+            <p style='text-align: center'> {{ p.product_id }}</p>
+            {% endfor %}
+            </div>
+
+    </div>
+    <div class="col-sm-4">
+            <div><p style="font-family: sans-serif; text-align: center"> <b style='background-color:lightslategrey'>Your Bidded Items</b> </br> </p>
+            {% for b in bidded_products %}
+            <p style='text-align:center'>{{ b.product_id }}</p>
+        {% endfor %}
+            </div>
+
+    </div>
+</div>
+</div>
+<div class="container-fluid" style="font-family: sans-serif; font-size: medium; border: 2px solid black; background: lightgrey; height: 300px; margin-top:5px ">
+<b style='background-color:lightslategrey'>Notification about your products on sale</b>
+     {% for p in seller_stat %}
+            <li> {{ p.notif }}</li>
+            {% endfor %}
+            </div>
+<div class="container-fluid" style="font-family: sans-serif; font-size: medium; border: 2px solid black; background: lightgrey; height: 300px; margin-top:5px ">         
+<b style='background-color:lightslategrey'>Notification about your bidded products that you won</b>
+     {% for b in bidder_stat %}
+            <li> {{ b.notif }}</li>
+            {% endfor %}
+    </div>
+</body>
+
+
+
+{% endblock content %}

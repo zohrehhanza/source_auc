@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+    
+{% block content %}
+<h2>Delete List</h2>
+<a href="{% url 'product_detail' product_id %}"><span class="glyphicon glyphicon-arrow-left"></span>Back</a>
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete?</p>
+    <button class="btn btn-lg btn-block" type="submit" style="background-color: black; color: white; width:100px">Confirm</button>
+</form>
+{% endblock content %}

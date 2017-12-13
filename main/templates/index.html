@@ -1,0 +1,89 @@
+{% extends "base1.html" %}
+{% load staticfiles %}
+
+{% block title %}AuctionRoom{% endblock %}
+{% block header_text %}welcome to {{rooms.0}} auction{% endblock %}
+{% block content %}
+<!--     <script src="{% static "speak.js" %}"></script>#}
+ -->    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js"></script>
+<!-- {#    <script src="{% static "main.js" %}"></script>#}
+ -->    <script src="{% static "main.js" %}"></script>
+
+    <p>hello {{ user }}  press button to join the room</p></br>
+    <ul class="rooms">
+        {% for room in rooms %}
+            <li class="room-link" data-room-id="{{ room.id }}">{{ room }}</li>
+        {% empty %}
+            <p class="empty">No chat rooms defined. Maybe make some in the <a href="{% url 'admin:index' %}">admin</a>?</p>
+        {% endfor %}
+    </ul>
+
+    <div id="chats">
+    </div>
+
+{% endblock %}
+{% block extra_body %}
+<!-- {#    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>#}
+{#    <script src="//cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js"></script>#}
+{#    <script src="{% static "main.js" %}"></script>#}
+{#     <script src="{% static "speak.js" %}"></script>#} -->
+    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+<script>
+var username = "{{ user.username }}";
+function checkCompatibilty () {
+    if(!('speechSynthesis' in window)){
+        alert('Your browser is not supported. If google chrome, please upgrade!!');
+    }
+};
+
+checkCompatibilty();
+
+console.log(Text);
+
+var voiceMap = [];
+
+function loadVoices () {
+    var voices = speechSynthesis.getVoices();
+    for (var i = 0; i < voices.length; i++) {
+        var voice = voices[i];
+        var option = document.createElement('option');
+        option.value = voice.name;
+        option.innerHTML = voice.name;
+        voiceMap[voice.name] = voice;
+    };
+};
+
+window.speechSynthesis.onvoiceschanged = function(e){
+    loadVoices();
+};
+
+var w_text="welcome to conference room hahahaa"
+function speak (w_text) {
+    var msg = new SpeechSynthesisUtterance();
+    msg.volume = 0.5;
+
+    // msg.voice = voiceMap[voiceOptions.value];
+    Text="welcome to conference room"
+         // msg.text = Text;
+     msg.text=w_text;
+    window.speechSynthesis.speak(msg);
+};
+setInterval(function() {
+               $.ajax({url: '/ajax/validate_notif/',
+                  data: {
+                     'username': username,
+                       },
+            dateType:'json',
+            success: function(result){
+            alert(result.note);
+            speak(result.note)
+            $("#div1").innerHTML(result);
+        }});
+{#     location.reload();#}
+       }, 5000);
+
+
+    </script>
+
+{% endblock %}

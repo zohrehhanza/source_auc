@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>This is your home page {{user}}</h1>
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button>Search</button>
+</form>
+<h4>Your search result:</h4>
+<h5>{{text}}</h5>
+
+
+
+{% endblock content %}
